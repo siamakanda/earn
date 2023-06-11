@@ -676,7 +676,7 @@
     display: none;
   }
   .landing_page .header_title {
-    background: url("/assets/v2/img/landing_page1/gradient-menu.png") center;
+    background: url("https://i.postimg.cc/m25PmD5W/gradient-menu.png") center;
     height: 45px;
   }
   .landing_page .header_title p {
@@ -689,7 +689,7 @@
   }
   .landing_page .step_container {
     min-height: 1000px;
-    background: url("/assets/v2/img/landing_page1/gradient.jpg");
+    background: url("https://i.postimg.cc/Wp7pH3tf/gradient.jpg");
     background-attachment: fixed;
     background-size: cover;
   }
