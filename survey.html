@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Interactive Survey</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .question {
+        margin-bottom: 20px;
+      }
+
+      .question h2 {
+        margin-bottom: 10px;
+      }
+
+      .options {
+        margin-bottom: 10px;
+      }
+
+      .options input[type="radio"] {
+        margin-right: 10px;
+      }
+
+      button {
+        display: block;
+        width: auto;
+        padding: 10px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      #result-container {
+        margin-top: 20px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 4px;
+        display: none;
+      }
+
+      #result-container h2 {
+        margin-bottom: 10px;
+      }
+
+      #result-container p {
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Interactive Survey</h1>
+      <div id="survey-container">
+        <div id="question-1" class="question">
+          <h2>Question 1:</h2>
+          <p>
+            আপনি জানেন কি? বাংলাদেশ সরকার মাননীয় প্রধানমন্ত্রী শেখ হাসিনার
+            উদ্যোগে শিক্ষার্থীদের আর্থিক সহায়তা অথবা লেপ্টপ কম্পিউটার প্রদান
+            করতে যাচ্ছে?
+          </p>
+          <div class="options">
+            <input type="radio" name="q1" value="no" /> না<br />
+            <input type="radio" name="q1" value="yes" /> হ্যাঁ<br />
+          </div>
+          <button onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div id="question-2" class="question" style="display: none">
+          <h2>Question 2:</h2>
+          <p>আপনি কি সরকারের এই উদ্যোগের প্রসংশা করেন?</p>
+          <div class="options">
+            <input type="radio" name="q2" value="no" /> না<br />
+            <input type="radio" name="q2" value="yes" /> হ্যাঁ<br />
+          </div>
+          <button onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div id="question-3" class="question" style="display: none">
+          <h2>Question 3:</h2>
+          <p>আপনি কি সরকারের এই উদ্যোগ থেকে লাভবান হতে চান?</p>
+          <div class="options">
+            <input type="radio" name="q3" value="no" /> না<br />
+            <input type="radio" name="q3" value="yes" /> হ্যাঁ<br />
+          </div>
+          <button onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div id="question-4" class="question" style="display: none">
+          <h2>Question 4:</h2>
+          <p>কিভাবে এই সহায়তা পাওয়ার জন্য আবেদন করবেন জানেন কি?</p>
+          <div class="options">
+            <input type="radio" name="q4" value="no" /> না<br />
+            <input type="radio" name="q4" value="yes" /> হ্যাঁ<br />
+          </div>
+          <button onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div id="question-5" class="question" style="display: none">
+          <h2>Question 5:</h2>
+          <p>আপনার একটি টেলিটক সিম আছে কি?</p>
+          <div class="options">
+            <input type="radio" name="q5" value="no" /> না<br />
+            <input type="radio" name="q5" value="yes" /> হ্যাঁ<br />
+          </div>
+          <button onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div id="question-6" class="question" style="display: none">
+          <h2>Question 6:</h2>
+          <p>আপনি কোনটা পেতে চান?</p>
+          <div class="options">
+            <input type="radio" name="q6" value="financial" /> আর্থিক সহায়তা<br />
+            <input type="radio" name="q6" value="laptop" /> লেপ্টপ কম্পিউটার<br />
+          </div>
+          <button onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div id="question-7" class="question" style="display: none">
+          <h2>Question 7:</h2>
+          <p>পরবর্তী ধাপে আপনার নাম এবং মোবাইল দিয়ে আবেদন করতে চান?</p>
+          <div class="options">
+            <input type="radio" name="q7" value="no" /> না<br />
+            <input type="radio" name="q7" value="yes" /> হ্যাঁ<br />
+          </div>
+          <button onclick="submitSurvey()">Submit</button>
+        </div>
+
+        <div id="result-container" style="display: none">
+          <h2>Survey Results:</h2>
+          <p id="result-q1"></p>
+          <p id="result-q2"></p>
+          <p id="result-q3"></p>
+          <p id="result-q4"></p>
+          <p id="result-q5"></p>
+          <p id="result-q6"></p>
+          <p id="result-q7"></p>
+        </div>
+      </div>
+
+      <script>
+        var currentQuestion = 1;
+        var totalQuestions = 7;
+
+        function nextQuestion() {
+          var currentQuestionElement = document.getElementById(
+            "question-" + currentQuestion
+          );
+          var answer = document.querySelector(
+            'input[name="q' + currentQuestion + '"]:checked'
+          );
+
+          if (answer === null) {
+            alert("Please select an answer before proceeding.");
+            return;
+          }
+
+          currentQuestionElement.style.display = "none";
+
+          currentQuestion++;
+          var nextQuestionElement = document.getElementById(
+            "question-" + currentQuestion
+          );
+          nextQuestionElement.style.display = "block";
+        }
+
+        function submitSurvey() {
+          // Hide the survey container and display the result container
+          document.getElementById("survey-container").style.display = "none";
+          document.getElementById("result-container").style.display = "block";
+
+          // Redirect to the result.html page
+          window.location.href = "/result.html";
+        }
+      </script>
+    </div>
+  </body>
+</html>
